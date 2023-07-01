@@ -1,0 +1,8 @@
+# ignored files
+
+**/obj/**
+**/.vs/
+obj/**
+.vs/**
+bin/**
+.vscode/**
