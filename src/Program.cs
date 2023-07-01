@@ -1,13 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using src.Model.Repo;
+using src.Services.Account;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
 builder.Services.AddDbContext<WarrantyrepoContext>(opts =>{
     opts.UseNpgsql(builder.Configuration.GetConnectionString("db_key"));
 });
+builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IAccountManager, AccountManager>();
+builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -22,7 +26,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthorization();
-app.MapRazorPages();
+
+app.MapControllers();
+app.MapDefaultControllerRoute();
 
 app.Run();
