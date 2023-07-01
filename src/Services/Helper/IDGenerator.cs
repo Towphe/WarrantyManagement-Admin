@@ -1,4 +1,4 @@
-namespace src.Services;
+namespace src.Services.Helper;
 public static class IDGenerator{
   public static string GenerateID(string type){
     Random rng = Random.Shared;

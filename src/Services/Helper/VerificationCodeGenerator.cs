@@ -1,4 +1,4 @@
-namespace src.Services;
+namespace src.Services.Helper;
 public static class VerificationCodeGenerator{
   public static string GenerateCode(){
     string code = "";
