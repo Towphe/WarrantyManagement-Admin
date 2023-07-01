@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using src.Model.Repo;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<WarrantyrepoContext>(opts =>{
+    opts.UseNpgsql(builder.Configuration.GetConnectionString("db_key"));
+});
 
 var app = builder.Build();
 
