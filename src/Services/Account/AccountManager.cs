@@ -9,12 +9,12 @@ using System.Collections;
 namespace src.Services.Account;
 
 public class AccountManager : IAccountManager{
-  public AccountManager(WarrantyrepoContext warrantyrepoContext, IPasswordHasher passwordHasher){
+  public AccountManager(WarrantyrepoContext warrantyrepoContext, IHasher passwordHasher){
     _dbContext = warrantyrepoContext;
     _passwordHasher = passwordHasher;
   }
   private WarrantyrepoContext _dbContext;
-  private IPasswordHasher _passwordHasher;
+  private IHasher _passwordHasher;
   public async Task<string> CreateUser(UserDto userInput){
     string id = IDGenerator.GenerateID("USR");
     User user = new User(){

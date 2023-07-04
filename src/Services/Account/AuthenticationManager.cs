@@ -8,12 +8,12 @@ using src.Model.Repo;
 namespace src.Services.Account;
 
 public class AuthenticationManager : IAuthenticationManager{
-  public AuthenticationManager(WarrantyrepoContext warrantyrepoContext, IPasswordHasher passwordHasher){
+  public AuthenticationManager(WarrantyrepoContext warrantyrepoContext, IHasher passwordHasher){
     _dbContext = warrantyrepoContext;
     _passwordHasher = passwordHasher;
   }
   private WarrantyrepoContext _dbContext;
-  private IPasswordHasher _passwordHasher;
+  private IHasher _passwordHasher;
   public async Task<string> SignIn(UserDto userDto, HttpContext httpContext){
     User? user = await _dbContext.Users.Where(u => u.Username == userDto.Username).FirstOrDefaultAsync();
     if (user == null){
