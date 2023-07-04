@@ -18,8 +18,7 @@ public class AuthorizationFilter : IAsyncActionFilter{
   public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next){
     User? user = await _dbContext.Users.Where(u => u.UserToken == context.HttpContext.Session.GetString("admin")).FirstOrDefaultAsync();
     if (user == null){
-      // redirect to login page with message `not yet logged in`
-      context.HttpContext.Response.Redirect("/signin");
+      context.HttpContext.Response.Redirect("/account/signin");
     }
     await next();
   }
