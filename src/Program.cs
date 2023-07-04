@@ -10,8 +10,19 @@ builder.Services.AddDbContext<WarrantyrepoContext>(opts =>{
 });
 builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAccountManager, AccountManager>();
+builder.Services.AddScoped<IAuthenticationManager, AuthenticationManager>();
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache(opts => {
+    opts.ExpirationScanFrequency = TimeSpan.FromSeconds(30);
+});
+builder.Services.AddSession(opts =>{
+    opts.IdleTimeout = TimeSpan.FromMinutes(1);
+    opts.Cookie.Name = ".warranty-repo.Session";
+    opts.Cookie.HttpOnly = true;
+    opts.Cookie.IsEssential = true;
+    opts.Cookie.MaxAge = TimeSpan.FromMinutes(1);
+});
 
 var app = builder.Build();
 
@@ -26,6 +37,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseSession();
 
 app.MapControllers();
 app.MapDefaultControllerRoute();
