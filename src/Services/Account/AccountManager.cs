@@ -15,7 +15,7 @@ public class AccountManager : IAccountManager{
   }
   private WarrantyrepoContext _dbContext;
   private IPasswordHasher _passwordHasher;
-  public async Task<bool> CreateUser(UserDto userInput){
+  public async Task<string> CreateUser(UserDto userInput){
     string id = IDGenerator.GenerateID("USR");
     User user = new User(){
       Id = id,
@@ -28,25 +28,25 @@ public class AccountManager : IAccountManager{
     try{
       await _dbContext.Users.AddAsync(user);
       await _dbContext.SaveChangesAsync();
-      return true;
+      return "Success";
     }
     catch{
-      return false;
+      return "UnexpectedFailure";
     }
   }
-  public async Task<bool> DeleteUser(User user){
+  public async Task<string> DeleteUser(User user){
     _dbContext.Users.Remove(user);
     await _dbContext.SaveChangesAsync();
-    return true;
+    return "Success";
   }
-  public async Task<bool> EditUser(User user, UserDto userInput){
+  public async Task<string> EditUser(User user, UserDto userInput){
     user.Username = userInput.Username;
     user.Email = userInput.Email;
     if (userInput.Password != null){
       user.Password = _passwordHasher.HashPassword(userInput.Password);
     }
     await _dbContext.SaveChangesAsync();
-    return true;
+    return "Success";
   }
   public async Task<User>? FindUser(string userId){
     User? user = await _dbContext.Users.FindAsync(userId);
