@@ -16,11 +16,13 @@ public class AccountManager : IAccountManager{
   private WarrantyrepoContext _dbContext;
   private IPasswordHasher _passwordHasher;
   public async Task<bool> CreateUser(UserDto userInput){
+    string id = IDGenerator.GenerateID("USR");
     User user = new User(){
-      Id = IDGenerator.GenerateID("USR"),
+      Id = id,
       Username = userInput.Username,
       Password = _passwordHasher.HashPassword(userInput.Password),
       Email = userInput.Email,
+      UserToken = _passwordHasher.HashPassword(id),
       Vcode = VerificationCodeGenerator.GenerateCode()
     };  
     try{

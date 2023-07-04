@@ -14,4 +14,6 @@ public partial class User
     public string Email { get; set; } = null!;
 
     public string? Vcode { get; set; }
+
+    public string UserToken { get; set; } = null!;
 }
