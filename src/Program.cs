@@ -41,6 +41,6 @@ app.UseRouting();
 app.UseSession();
 
 app.MapControllers();
-app.MapDefaultControllerRoute();
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
