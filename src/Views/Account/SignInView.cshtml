@@ -1,0 +1,13 @@
+@model UserDto
+
+<div>
+  <h1>Sign In</h1>
+  <form asp-action="LogIn" method="post">
+    <label>Username</label>
+    <input asp-for="Username" type="text" />
+    <label>Password</label>
+    <input asp-for="Password" type="password">
+    <a href="/account/forgot-password">Forgot Password</a>
+    <button type="submit">Sign In</button>
+  </form>
+</div>
