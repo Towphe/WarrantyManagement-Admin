@@ -48,20 +48,27 @@ public class AccountController : Controller{
     return View();
   }
   // create filter for this
-  [Route("reset-password")]
-  public IActionResult ForgotPasswordViewPt2(){
+  [Route("reset-password/{uid?}")]
+  public IActionResult ForgotPasswordViewPt2([FromRoute] string uid){
     ViewData["Title"] = "Reset Password";
+    ViewData["Uid"] = uid;
+    return View();
+  }
+  [Route("Success")]
+  public IActionResult PasswordChangeSuccess(){
+    ViewData["Title"] = "Password Changed";
     return View();
   }
   // api
 
   // implement signup later on
-  /*
+  
   [HttpPost]
   [Route("signup-api")]
-  public async Task<IActionResult> SignUp([FromBody] SignUpDto signUpDto){
+  public async Task<string> SignUp([FromBody] SignUpDto signUpDto){
     if (signUpDto.Password != signUpDto.ConfirmPassword){
-      return RedirectToAction(nameof(SignIn)); // add error that passwords mismatch
+      //return RedirectToAction(nameof(SignIn)); // add error that passwords mismatch
+      return "PasswordMismatch";
     }
     string createUserResult = await _accountManager.CreateUser(new UserDto(){
       Username = signUpDto.Username,
@@ -69,12 +76,14 @@ public class AccountController : Controller{
       Email = signUpDto.Email
     });
     if (createUserResult == "Success"){
-      return RedirectToAction(actionName: "index", controllerName: "dashboard");
+      //return RedirectToAction(actionName: "index", controllerName: "dashboard");
+      return "Success";
     } else{
-      return RedirectToAction(actionName: "Error", controllerName: "home");
+      //return RedirectToAction(actionName: "Error", controllerName: "home");
+      return "UnexpectedError";
     }
   }
-  */
+  
 
   // to create: filter that makes sure proper body is present for request
   [HttpPost]
@@ -112,5 +121,17 @@ public class AccountController : Controller{
     }
     // email user link to change password (configure later)
     return View();
+  }
+  // to do: filter that checks query for user token before reseting password and other priority actions
+  [HttpPost]
+  [Route("password-change")]
+  public async Task<IActionResult> ResetPassword(ForgotPasswordDto forgotPasswordDto){
+    string passwordChangeResult = await _authManager.ForgotPassword(forgotPasswordDto);
+    if (passwordChangeResult == "UserNotFound"){
+      return RedirectToAction(nameof(ForgotPasswordViewPt2)); // add user token in query
+    } if(passwordChangeResult == "PasswordMismatch"){
+      return RedirectToAction(nameof(ForgotPasswordViewPt2)); // add user token in query
+    }
+    return RedirectToAction(nameof(PasswordChangeSuccess));
   }
 }
