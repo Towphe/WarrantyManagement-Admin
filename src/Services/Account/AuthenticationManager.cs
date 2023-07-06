@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Session;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using src.Model.Data.Account;
-using src.Model.Repo;
+using src.Model.Repo; 
+using Microsoft.AspNetCore.Mvc;
 
 namespace src.Services.Account;
 
@@ -32,7 +33,7 @@ public class AuthenticationManager : IAuthenticationManager{
     return "Success";
   }
   public async Task<string> ForgotPassword(ForgotPasswordDto forgotPasswordDto){
-    User? user = await _dbContext.Users.FindAsync(forgotPasswordDto.Id);
+    User? user = await _dbContext.Users.Where(u => u.UserToken == forgotPasswordDto.UserToken).FirstOrDefaultAsync();
     if (user == null){
       return "UserNotFound";
     }
