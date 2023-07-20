@@ -165,6 +165,9 @@ public partial class WarrantyrepoContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(70)
                 .HasColumnName("name");
+            entity.Property(e => e.Variants)
+                .HasColumnType("json")
+                .HasColumnName("variants");
 
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)

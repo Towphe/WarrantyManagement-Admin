@@ -17,6 +17,8 @@ public partial class Product
 
     public DateOnly DateAdded { get; set; }
 
+    public string? Variants { get; set; }
+
     public virtual Category Category { get; set; } = null!;
 
     public virtual Distributor Distributor { get; set; } = null!;
