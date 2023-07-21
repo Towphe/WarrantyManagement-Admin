@@ -1,0 +1,46 @@
+@model IEnumerable<Entry>
+
+<div>
+  <table class="table w-full">
+    <!-- add sorting by different columns (esp status and date request) -->
+    <thead>
+      <tr style="font-weight: bold;">
+        <td>Manage</td>
+        <td>Status</td>
+        <td>Id</td>
+        <td>Product</td>
+        <td>Variation</td>
+        <td>Date Purchased</td>
+        <td>Date Added</td>
+        <td>Store</td>
+        <td>Sales Order Number</td>
+        <td>Reference Number</td>
+        <td>Name</td>
+        <td>Contact</td>
+        <td>Email</td>
+      </tr>
+    </thead>
+    @foreach (Entry entry in Model){
+      <tbody>
+        <tr>
+          <td>
+            <a href="/dashboard/entries/@entry.Id">Manage</a>
+          </td>
+          <td>@entry.Status</td>
+          <td>@entry.Id</td>
+          <td>@entry.Product.Name</td>
+          <td>@entry.Variation</td>
+          <td>@entry.DatePurchased</td>
+          <td>@entry.DateAdded</td>
+          <td>@entry.Store</td>
+          <td>@entry.SalesOrderNum</td>
+          <td>@entry.ReferenceNum</td>
+          <td>@(entry.FirstName + " " + entry.LastName)</td>
+          <td>@entry.ContactNumber</td>
+          <td>@entry.Email</td>
+        </tr>
+      </tbody>
+      
+    }
+  </table>
+</div>

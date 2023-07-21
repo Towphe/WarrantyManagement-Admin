@@ -1,0 +1,71 @@
+@model Entry
+
+<div>
+<span><a href="/dashboard/entries">Dashbaord</a></span>
+<h1>Order @Model.Id</h1>
+@{
+  switch (Model.Status){
+    case "ACCEPTED":
+      <h2 style="color:green">ACCEPTED</h2>
+      break;
+    case "REJECTED":
+      <h2 style="color:red">REJECTED</h2>
+      break;
+    default:
+      <h2 style="color:grey">UNRESOLVED</h2>
+      break;
+  }
+}
+<table>
+  <tr>
+    <td>Product</td>
+    <td>@Model.Product.Name</td>
+  </tr>
+  <tr>
+    <td>Variant</td>
+    @{
+      if (Model.Variation == ""){
+        <td>N/A</td>
+      } else{
+        <td>@Model.Variation</td>
+      }
+    }
+  </tr>
+  <tr>
+    <td>Date Purchased</td>
+    <td>@Model.DatePurchased</td>
+  </tr>
+  <tr>
+    <td>Date Requested</td>
+    <td>@Model.DateAdded</td>
+  </tr>
+  <tr>
+    <td>Merchant</td>
+    <td>@Model.Store</td>
+  </tr>
+  <tr>
+    <td>Reference Number</td>
+    <td>@Model.ReferenceNum</td>
+  </tr>
+  <tr>
+    <td>Sales Order Number</td>
+    <td>@Model.SalesOrderNum</td>
+  </tr>
+  <tr>
+    <td>Customer</td>
+    <td>@Model.FirstName @Model.LastName</td>
+  </tr>
+  <tr>
+    <td>Contact Number</td>
+    <td>@Model.ContactNumber</td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td>@Model.Email</td>
+  </tr>
+</table>
+<!-- prompt confirmation before the following actions -->
+<a href="/Dashboard/Approve/@Model.Id">Approve</a>
+<a href="/Dashboard/Reject/@Model.Id">Reject</a>
+</div>
+<!-- implement image loading later -->
