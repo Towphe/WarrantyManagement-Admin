@@ -17,5 +17,7 @@ public partial class Merchant
 
     public DateOnly DateAdded { get; set; }
 
+    public bool? Deleted { get; set; }
+
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

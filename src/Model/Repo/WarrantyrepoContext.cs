@@ -26,7 +26,6 @@ public partial class WarrantyrepoContext : DbContext
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
@@ -64,6 +63,9 @@ public partial class WarrantyrepoContext : DbContext
             entity.Property(e => e.DateAdded)
                 .HasDefaultValueSql("CURRENT_DATE")
                 .HasColumnName("date_added");
+            entity.Property(e => e.Deleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("deleted");
             entity.Property(e => e.Name)
                 .HasMaxLength(70)
                 .HasColumnName("name");
@@ -85,6 +87,9 @@ public partial class WarrantyrepoContext : DbContext
                 .HasDefaultValueSql("CURRENT_DATE")
                 .HasColumnName("date_added");
             entity.Property(e => e.DatePurchased).HasColumnName("date_purchased");
+            entity.Property(e => e.Deleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("deleted");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Email)
                 .HasMaxLength(254)
@@ -136,6 +141,9 @@ public partial class WarrantyrepoContext : DbContext
             entity.Property(e => e.DateAdded)
                 .HasDefaultValueSql("CURRENT_DATE")
                 .HasColumnName("date_added");
+            entity.Property(e => e.Deleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("deleted");
             entity.Property(e => e.Name)
                 .HasMaxLength(70)
                 .HasColumnName("name");
@@ -160,6 +168,7 @@ public partial class WarrantyrepoContext : DbContext
             entity.Property(e => e.DateAdded)
                 .HasDefaultValueSql("CURRENT_DATE")
                 .HasColumnName("date_added");
+            entity.Property(e => e.Deleted).HasColumnName("deleted");
             entity.Property(e => e.DistributorId).HasColumnName("distributor_id");
             entity.Property(e => e.MerchantId).HasColumnName("merchant_id");
             entity.Property(e => e.Name)
@@ -194,6 +203,9 @@ public partial class WarrantyrepoContext : DbContext
             entity.Property(e => e.Id)
                 .HasMaxLength(11)
                 .HasColumnName("id");
+            entity.Property(e => e.Deleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("deleted");
             entity.Property(e => e.Email)
                 .HasMaxLength(254)
                 .HasColumnName("email");

@@ -35,5 +35,7 @@ public partial class Entry
 
     public string Status { get; set; } = null!;
 
+    public bool? Deleted { get; set; }
+
     public virtual Product Product { get; set; } = null!;
 }

@@ -16,4 +16,6 @@ public partial class User
     public string? Vcode { get; set; }
 
     public string UserToken { get; set; } = null!;
+
+    public bool? Deleted { get; set; }
 }

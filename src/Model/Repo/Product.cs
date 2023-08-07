@@ -19,6 +19,8 @@ public partial class Product
 
     public string? Variants { get; set; }
 
+    public bool Deleted { get; set; }
+
     public virtual Category Category { get; set; } = null!;
 
     public virtual Distributor Distributor { get; set; } = null!;
