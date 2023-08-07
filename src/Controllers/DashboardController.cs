@@ -4,6 +4,7 @@ using src.Model.Data;
 using src.Model.Repo;
 using src.Services.Account;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace src.Controllers;
 
@@ -28,8 +29,10 @@ public class DashboardController : Controller{
   [Route("Entries")]  
   public async Task<IActionResult> Entries([FromQuery] int count = 10, [FromQuery] int page = 1){
     ViewData["Title"] = "Entries";
+    Console.WriteLine($"Count: {count} Page: {page}");
     //IEnumerable<Entry> entries = _dbContext.Entries.Skip((page - 1) * count).Take(count).AsEnumerable();
     IEnumerable<Entry> entries = _dbContext.Entries.Skip((page - 1) * count).Take(count).Include(e => e.Product).AsEnumerable();
+    TempData["entryCount"] = _dbContext.Entries.Count().ToString();
     return View(entries);
   }
   [Route("Entries/{id}")]

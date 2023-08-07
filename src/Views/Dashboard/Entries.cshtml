@@ -1,8 +1,9 @@
-@model IEnumerable<Entry>
+@model IEnumerable<Entry> 
 
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<!-- add search functionality soon -->
 <div>
-  <table class="table w-full">
-    <!-- add sorting by different columns (esp status and date request) -->
+  <table class="table w-full sortable">
     <thead>
       <tr style="font-weight: bold;">
         <td>Manage</td>
@@ -20,9 +21,9 @@
         <td>Email</td>
       </tr>
     </thead>
+    <tbody>
     @foreach (Entry entry in Model){
-      <tbody>
-        <tr>
+        <tr class="item">
           <td>
             <a href="/dashboard/entries/@entry.Id">Manage</a>
           </td>
@@ -39,8 +40,17 @@
           <td>@entry.ContactNumber</td>
           <td>@entry.Email</td>
         </tr>
-      </tbody>
-      
     }
+    </tbody>
   </table>
+  <ul>
+  @{
+    int pages = int.Parse(TempData["entryCount"].ToString()) / 10;
+    for (int i=1; i<=pages; i++){
+      <li>
+        <a href="/dashboard/entries?count=10&page=@i">@i</a>
+      </li>
+    }
+  }
+  </ul>
 </div>
