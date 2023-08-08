@@ -40,6 +40,7 @@ public partial class WarrantyrepoContext : DbContext
             entity.Property(e => e.DateAdded)
                 .HasDefaultValueSql("CURRENT_DATE")
                 .HasColumnName("date_added");
+            entity.Property(e => e.Deleted).HasColumnName("deleted");
             entity.Property(e => e.Subtype)
                 .HasMaxLength(70)
                 .HasColumnName("subtype");
